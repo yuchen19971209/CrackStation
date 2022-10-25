@@ -31,4 +31,18 @@ final class CrackStationTests: XCTestCase {
         //Then
         XCTAssertNil(ans)
     }
+
+    //(SHA1) Unit test hash mapping get correct value
+    func testCrackValue() {
+        //Given
+        let CrackLibrary = CrackStation()
+
+        //When
+        let ans = CrackLibrary.decrypt(shaHash: "909f99a779adb66a76fc53ab56c7dd1caf35d0fd")
+        //print(ans)
+
+        //Then
+        XCTAssertNotNil(ans)
+        XCTAssert(ans == "Z")
+    }
 }
