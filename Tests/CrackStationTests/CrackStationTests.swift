@@ -5,10 +5,17 @@ import Crypto
 
 
 final class CrackStationTests: XCTestCase {
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        XCTAssertEqual(CrackStation().text, "Hello, World!")
+
+    //(SHA1) Unit test hash mapping not nil
+    func testCrackNotNil(){
+        //Given
+        let CrackLibrary = CrackStation()
+
+        //When
+        let ans = CrackLibrary.decrypt(shaHash: "86f7e437faa5a7fce15d1ddcb9eaeaea377667b8")
+        //print(ans)
+
+        //Then
+        XCTAssertNotNil(ans)
     }
 }

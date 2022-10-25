@@ -1,7 +1,7 @@
 import Foundation
 import Crypto
-public struct CrackStation {
-    public private(set) var text = "Hello, World!"
+public struct CrackStation: Decrypter {
+    //public private(set) var text = "Hello, World!"
 
     private var lookupTable: [String: String] = [:]
 
