@@ -1,5 +1,8 @@
 import XCTest
+import Foundation
+import Crypto
 @testable import CrackStation
+
 
 final class CrackStationTests: XCTestCase {
     func testExample() throws {
