@@ -5,22 +5,28 @@ public struct CrackStation: Decrypter {
 
     private var lookupTable: [String: String] = [:]
 
-    private func loadDictionaryFromDisk() throws -> [String : String] {
+    //private func loadDictionaryFromDisk() throws -> [String : String] {
+    private func loadDictionaryFromDisk() -> [String : String] {
         guard let path = Bundle.module.url(forResource: "hash", withExtension: "json") else { return [:] }
 
-        let data = try Data(contentsOf: path)
-        let jsonResult = try JSONSerialization.jsonObject(with: data)
+        do{
+            let data = try Data(contentsOf: path)
+            let jsonResult = try JSONSerialization.jsonObject(with: data)
 
-        if let lookupTable: Dictionary = jsonResult as? Dictionary<String, String> {
-            return lookupTable
-        } else {
+            if let lookupTable: Dictionary = jsonResult as? Dictionary<String, String> {
+                return lookupTable
+            } else {
+                return [:]
+            }
+        }catch{
             return [:]
         }
     }
 
     //Run this the very first time
     public init() {
-        lookupTable = try!loadDictionaryFromDisk()
+        //lookupTable = try!loadDictionaryFromDisk()
+        lookupTable = loadDictionaryFromDisk()
     }
 
     public func decrypt(shaHash: String) -> String?{
