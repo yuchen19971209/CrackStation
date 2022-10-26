@@ -1,27 +1,41 @@
 # cs561-swift
 
 ## Crack Station
-My swift package name is crack_station. If you want to implement to test the function, you should 
-* import Crpto 
-* @testable import crack_station
+The purpose of Crack Station is to decrypt the SHA1 `[a-z0-9A-Z]` and SHA256 `[a-z0-9A-Z?!]` Hash strings which len are shorter than three. People who use this library can decrypt other's short password easily. Therefore, poeple may concern more about the issue of password security.
 
-Then, You can **call function** which is named **crack** and give **hash String** as *input*, then the function will return *output* string that **hash String mapping**.
 
-### (a) Clear description of what I built
+### How to use it?
+* **Environment Version**
+Swift version 5.7 (swift-5.7-RELEASE)
+Target: x86_64-unknown-linux-gnu
 
-* **Create dictionary** as *look up table*
-* **Function crack(_ hash String)** to output hash mapping string 
-* Unit test hash mapping **value not nil**
-* Unit test when given *wrong String*, then **Assert** nil
-* Unit test hash mapping if get **correct** return value
-
-### (b) Instructions for how to run it
-
-* Giving a hash String as parameter to call crack(), then saved and execute the below command line 
+* **Added** a *dependency* in `Package.swift`
 
 ```
-swift build
-swift test --enable-code-coverage
+dependencies: [
+        .package(url: "git@github.com:yuchen19971209/CrackStation.git", from: "1.0.1"),
+    ],
+```
+```
+targets: [
+        .target(
+            name: ...,
+            dependencies: ["CrackStation"])
+        .....
+]
 ```
 
+* **Import CrackStation** under your Sources *swift* file
+```
+import CrackStation
+```
+
+* Call **decrypt()** function and *Input* **shaHash String** as your encrypt string, then the function will *return* **plaintext**. If the shaHash String does **not appear** in hash mapping dictionary or **nil**, it will return *nil*.
+
+
+### Latest stable release Version
+* v1.0.1
+
+### Author's name
+Yu-Chen, Chen
 
