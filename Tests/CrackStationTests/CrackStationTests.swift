@@ -45,4 +45,17 @@ final class CrackStationTests: XCTestCase {
         XCTAssertNotNil(ans)
         XCTAssert(ans == "Z")
     }
+
+    //(SHA2) Unit test getting correct mapping value
+    func testLoadingLookupTableFromDisk() {
+        //Given
+        let CrackLibrary = CrackStation()
+        
+        //When
+        let answer = CrackLibrary.decrypt(shaHash: "b8eb0368512d7f2aa3384b66a4f0c05335c6bd58db48325d3a39c86d7fc7974a")
+        //print(answer)
+
+        //Then
+        XCTAssertEqual(answer, "2!")
+    }
 }
