@@ -1,7 +1,7 @@
 # cs561-swift
 
 ## Crack Station
-The purpose of Crack Station is to decrypt the SHA1 `[a-z0-9A-Z]` and SHA256 `[a-z0-9A-Z?!]` Hash strings which len are shorter than three. People who use this library can decrypt other's short password easily. Therefore, poeple may concern more about the issue of password security.
+The purpose of Crack Station is to decrypt the SHA1 `[a-z0-9A-Z]` Hash strings which len are shorter than three and SHA256 `[a-z0-9A-Z?!]` Hash strings which len are shorter than four. People who use this library can decrypt other's short password easily. Therefore, poeple may concern more about the issue of password security.
 
 
 ### How to use it?
@@ -13,7 +13,7 @@ Target: x86_64-unknown-linux-gnu
 
 ```
 dependencies: [
-        .package(url: "git@github.com:yuchen19971209/CrackStation.git", from: "1.0.1"),
+        .package(url: "git@github.com:yuchen19971209/CrackStation.git", from: "1.0.3"),
     ],
 ```
 ```
@@ -34,7 +34,7 @@ import CrackStation
 
 
 ### Latest stable release Version
-* v1.0.1
+* v1.0.3
 
 ### Author's name
 Yu-Chen, Chen
