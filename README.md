@@ -13,7 +13,7 @@ Target: x86_64-unknown-linux-gnu
 
 ```
 dependencies: [
-        .package(url: "git@github.com:yuchen19971209/CrackStation.git", from: "1.0.3"),
+        .package(url: "git@github.com:yuchen19971209/CrackStation.git", from: "1.0.4"),
     ],
 ```
 ```
@@ -34,7 +34,7 @@ import CrackStation
 
 
 ### Latest stable release Version
-* v1.0.3
+* v1.0.4
 
 ### Author's name
 Yu-Chen, Chen
