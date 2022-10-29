@@ -7,7 +7,7 @@ public struct CrackStation: Decrypter {
 
     //private func loadDictionaryFromDisk() throws -> [String : String] {
     private func loadDictionaryFromDisk() -> [String : String] {
-        guard let path = Bundle.module.url(forResource: "hash", withExtension: "json") else { return [:] }
+        guard let path = Bundle.module.url(forResource: "hash_v1", withExtension: "json") else { return [:] }
 
         do{
             let data = try Data(contentsOf: path)
