@@ -28,11 +28,7 @@ public struct CrackStation: Decrypter {
 
     public func decrypt(shaHash: String) -> String?{
         //If my dictionary is empty, then throw an error
-        if lookupTable.isEmpty
-        {
-            return "Dictionary is empty"
-        }
-        
-        return lookupTable[shaHash]
+        let password = lookupTable[shaHash]
+        return password
     }
 }
