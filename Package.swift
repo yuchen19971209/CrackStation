@@ -25,7 +25,7 @@ let package = Package(
         .target(
             name: "CrackStation",
             dependencies: [.product(name: "Crypto", package: "swift-crypto")],
-            resources: [.process("hash_v1.json")]),
+            resources: [.process("hash_MVP.json")]),
         .testTarget(
             name: "CrackStationTests",
             dependencies: ["CrackStation"]),

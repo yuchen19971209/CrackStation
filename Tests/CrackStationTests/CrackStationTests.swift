@@ -19,13 +19,13 @@ final class CrackStationTests: XCTestCase {
         XCTAssertNotNil(ans)
     }
 
-    //(SHA1) Unit test suppose to give wrong string e.g. over one character(Hi!)
+    //(SHA1) Unit test suppose to give wrong string e.g. over one character(Hello)
     func testCrackWrongString(){
         //Given
         let CrackLibrary = CrackStation()
 
         //When
-        let ans = CrackLibrary.decrypt(shaHash: "c0a0ad26a634840c67a210fefdda76577b03a111")
+        let ans = CrackLibrary.decrypt(shaHash: "f7ff9e8b7bb2e09b70935a5d785e0cc5d9d0abf0")
         //print(ans)
 
         //Then

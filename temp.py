@@ -9,17 +9,8 @@ class Solution(object):
         :type num: int
         :rtype: str
         """
-        
-    '''SHA1'''
-    s1 = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
     
-    SHA1result1 = [''.join(p) for p in product(s1,repeat = 1)]
-    SHA1result2 = [''.join(p) for p in product(s1,repeat = 2)]
-    
-    resultSHA1 = SHA1result1 + SHA1result2
-    
-    
-    '''SHA256'''
+    '''SHA1 and SHA256'''
     s = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ?!0123456789'
     
     result1 = [''.join(p) for p in product(s,repeat = 1)]
@@ -34,14 +25,12 @@ class Solution(object):
     
     for i in range(len(resultAll)):
         dic[hashlib.sha256(resultAll[i].encode('utf-8')).hexdigest()] = resultAll[i]
-        
-    for i in range(len(resultSHA1)):
-        dic[hashlib.sha1(resultSHA1[i].encode('utf-8')).hexdigest()] = resultSHA1[i]
-    
+        dic[hashlib.sha1(resultAll[i].encode('utf-8')).hexdigest()] = resultAll[i]
+     
     
     #json_object = json.dumps(dic, indent = 4) 
     #print(json_object)
     
-    with open("hash_v1.json", "w") as outfile:
+    with open("hash_MVP.json", "w") as outfile:
         json.dump(dic, outfile)
     print(dic["86f7e437faa5a7fce15d1ddcb9eaeaea377667b8"])
