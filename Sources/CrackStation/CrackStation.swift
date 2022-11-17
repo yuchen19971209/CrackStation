@@ -5,7 +5,6 @@ public struct CrackStation: Decrypter {
 
     private let LookUpTable: [String: String]
 
-    //Run this the very first time
     public init() {
         if let path = Bundle.module.url(forResource: "hash_MVP", withExtension: "json"){
             do{

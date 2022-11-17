@@ -58,4 +58,17 @@ final class CrackStationTests: XCTestCase {
         //Then
         XCTAssertEqual(answer, "2!")
     }
+
+    //(SHA1) Unit test getting correct mapping value
+    func testLoadingLookupTableFromDisk3char() {
+        //Given
+        let CrackLibrary = CrackStation()
+        
+        //When
+        let answer = CrackLibrary.decrypt(shaHash: "3f6d6a8699144a0028a6f47b26a3c6f70306023f")
+        //print(answer)
+
+        //Then
+        XCTAssertEqual(answer, "Tin")
+    }
 }
