@@ -1,8 +1,8 @@
 # CrackStation, a Decrypter implementation
-An library that cracks SHA1 and SHA256 `[a-z0-9A-Z?!]` unsalted hashes of length less than four and return the password.
+An library that cracks short length characters.
 
 ## Overview
-SHA has the best security because it is a one-way function that cannot be decrypted or reversed. Many hackers don't crack SHA because it takes a lot of time to crack. 
+CrackStation is a highly performant library written in Swift that cracks passwords hashed using one way function (can’t be decrypted/reversed) using brute force method. CrackStation can crack SHA1 and SHA256 `[a-z0-9A-Z?!]` unsalted hashes of length less than four and return the password.
 
 ## Mission Statement
 While SHA is hard to crack, it can still be easily cracked by implementing a CrackStation library if the password is too short. Therefore, the purpose of this library is to wake people up to be more concerned about password security, and when they set their passwords, they should avoid setting them too short.
@@ -16,7 +16,7 @@ Once you have your Swift package set up, add CrackStation to the list of depende
 
 ```
 dependencies: [
-        .package(url: "git@github.com:yuchen19971209/CrackStation.git", .upToNextMajor(from: "1.0.7")),
+        .package(url: "git@github.com:yuchen19971209/CrackStation.git", .upToNextMajor(from: "1.0.8")),
     ],
 ```
 
@@ -41,16 +41,30 @@ import CrackStation
 
 Then write your own test function and **call site**.
 ```
-func testLoadingLookupTableFromDisk3char() {
-        // Given
-        let CrackLibrary = CrackStation()
-        
-        // When
-        let password = CrackLibrary.decrypt(shaHash: "3f6d6a8699144a0028a6f47b26a3c6f70306023f")
+//Given
+let CrackLibrary = CrackStation()
 
-        // Then
-        ......
-    }
+func testOneLetter() throws{
+        for letter in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?!" {
+            // Given
+            let password = String(letter)
+            let shaHash = encrypt(password)
+
+            // When
+            let crackedPassword = CrackLibrary.decrypt(shaHash: shaHash)
+
+            // Then
+            XCTAssertEqual(crackedPassword, password)
+        }
+}
+
+private func encrypt(_ password: String) -> String {
+        let dataToHash = Data(password.utf8)
+        let prefix = "SHA 1 digest: "
+        let shaHashDescription = String(Insecure.SHA1.hash(data: dataToHash).description)
+        let shaHash = String(shaHashDescription.dropFirst(prefix.count - 1))
+        return shaHash
+}
 ```
 
 ## Author
