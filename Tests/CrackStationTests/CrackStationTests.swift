@@ -3,13 +3,12 @@ import Foundation
 import Crypto
 @testable import CrackStation
 
-
 final class CrackStationTests: XCTestCase {
+    //Given
+    let CrackLibrary = CrackStation()
 
     //(SHA1) Unit test hash mapping not nil
     func testCrackNotNil(){
-        //Given
-        let CrackLibrary = CrackStation()
 
         //When
         let password = CrackLibrary.decrypt(shaHash: "86f7e437faa5a7fce15d1ddcb9eaeaea377667b8")
@@ -20,9 +19,6 @@ final class CrackStationTests: XCTestCase {
 
     //(SHA1) Unit test suppose to give wrong string e.g. over one character(Hello)
     func testCrackWrongString(){
-        //Given
-        let CrackLibrary = CrackStation()
-
         //When
         let password = CrackLibrary.decrypt(shaHash: "f7ff9e8b7bb2e09b70935a5d785e0cc5d9d0abf0")
 
@@ -32,9 +28,6 @@ final class CrackStationTests: XCTestCase {
 
     //(SHA1) Unit test hash mapping get correct value
     func testCrackValue() {
-        //Given
-        let CrackLibrary = CrackStation()
-
         //When
         let password = CrackLibrary.decrypt(shaHash: "909f99a779adb66a76fc53ab56c7dd1caf35d0fd")
 
@@ -43,27 +36,92 @@ final class CrackStationTests: XCTestCase {
         XCTAssert(password == "Z")
     }
 
-    //(SHA2) Unit test getting correct mapping value
-    func testLoadingLookupTableFromDisk() {
-        //Given
-        let CrackLibrary = CrackStation()
-        
-        //When
-        let password = CrackLibrary.decrypt(shaHash: "b8eb0368512d7f2aa3384b66a4f0c05335c6bd58db48325d3a39c86d7fc7974a")
+    func testOneLetter() throws{
+        for letter in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?!" {
+            // Given
+            let password = String(letter)
+            let shaHash = encrypt(password)
+            let shaHash256 = encrypt256(password)
 
-        //Then
-        XCTAssertEqual(password, "2!")
+            // When
+            let crackedPassword = CrackLibrary.decrypt(shaHash: shaHash)
+            let crackedPassword256 = CrackLibrary.decrypt(shaHash: shaHash256)
+
+            // Then
+            XCTAssertEqual(crackedPassword, password)
+            XCTAssertEqual(crackedPassword256, password)
+        }
     }
 
-    //(SHA1) Unit test getting correct mapping value
-    func testLoadingLookupTableFromDisk3char() {
-        //Given
-        let CrackLibrary = CrackStation()
-        
-        //When
-        let password = CrackLibrary.decrypt(shaHash: "3f6d6a8699144a0028a6f47b26a3c6f70306023f")
+    func testTwoLetter() throws{
+        var sum = 0
+        for i in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?!" {
+            for j in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?!"{
+                var letter = ""
+                letter.append(i)
+                letter.append(j)
 
-        //Then
-        XCTAssertEqual(password, "Tin")
+                // Given
+                let password = String(letter)
+                let shaHash = encrypt(password)
+                let shaHash256 = encrypt256(password)
+
+                // When
+                let crackedPassword = CrackLibrary.decrypt(shaHash: shaHash)
+                let crackedPassword256 = CrackLibrary.decrypt(shaHash: shaHash256)
+
+                // Then
+                XCTAssertEqual(crackedPassword, password)
+                XCTAssertEqual(crackedPassword256, password)
+                sum += 1
+            }
+        }
+        print(sum)
+    }
+    
+
+    func testThreeLetter() throws{
+        var sum = 0
+        for i in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?!" {
+            for j in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?!"{
+                for z in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789?!"{
+                    var letter = ""
+                    letter.append(i)
+                    letter.append(j)
+                    letter.append(z)
+
+                    // Given
+                    let password = String(letter)
+                    let shaHash = encrypt(password)
+                    let shaHash256 = encrypt256(password)
+
+                    // When
+                    let crackedPassword = CrackLibrary.decrypt(shaHash: shaHash)
+                    let crackedPassword256 = CrackLibrary.decrypt(shaHash: shaHash256)
+
+                    // Then
+                    XCTAssertEqual(crackedPassword, password)
+                    XCTAssertEqual(crackedPassword256, password)
+                    sum += 1
+                }
+            }
+        }
+        print(sum)
+    }
+
+    private func encrypt(_ password: String) -> String {
+        let dataToHash = Data(password.utf8)
+        let prefix = "SHA 1 digest: "
+        let shaHashDescription = String(Insecure.SHA1.hash(data: dataToHash).description)
+        let shaHash = String(shaHashDescription.dropFirst(prefix.count - 1))
+        return shaHash
+    }
+
+    private func encrypt256(_ password: String) -> String {
+        let dataToHash = Data(password.utf8)
+        let prefix = "SHA 256 digest: "
+        let shaHashDescription = String(SHA256.hash(data: dataToHash).description)
+        let shaHash = String(shaHashDescription.dropFirst(prefix.count - 1))
+        return shaHash
     }
 }
