@@ -16,7 +16,7 @@ Once you have your Swift package set up, add CrackStation to the list of depende
 
 ```
 dependencies: [
-        .package(url: "git@github.com:yuchen19971209/CrackStation.git", .upToNextMajor(from: "1.0.9")),
+        .package(url: "git@github.com:yuchen19971209/CrackStation.git", .upToNextMajor(from: "1.0.10")),
     ],
 ```
 
