@@ -1,5 +1,5 @@
 # CrackStation, a Decrypter implementation
-A library that can decrypt passwords with a length less than four.
+A library that can decrypt passwords with a length less than four characters.
 
 ## Overview
 CrackStation is a highly performant library written in Swift that cracks passwords hashed using one way function (can’t be decrypted/reversed) using brute force method. CrackStation can decrypt unsalted SHA1 and SHA256 `[a-z0-9A-Z?!]` hash strings, i.e. passwords less than four digits in length, and return the password.
@@ -41,14 +41,11 @@ import CrackStation
 
 Then write your own test function and **call site**.
 ```
-//Given
 let CrackLibrary = CrackStation()
-
-// When
 let crackedPassword = CrackLibrary.decrypt(shaHash: "86f7e437faa5a7fce15d1ddcb9eaeaea377667b8")
 ```
 
 ## Author
-Yu-Chen, Chen
+Yu Chen Chen
 
 
